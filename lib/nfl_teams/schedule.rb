@@ -18,7 +18,7 @@ class NflTeams::Schedule
               (schedule.children[0].respond_to?('text'))
             day = schedule.children[0].text
             if day.match? /Sun|Mon|Thu|Fri|Sat/
-              sched = Schedule.new
+              sched = NflTeams::Schedule.new
               week = week + 1
               sched.week = week
               sched.day = day

@@ -10,7 +10,7 @@ class NflTeams::News
     news = doc.css(".news-feed-shortstop").css(".bloom-content")
     newsItem = nil
     news.each do |newsItem|
-      nw = News.new(team, newsItem.children[1].text, newsItem.children[2].text)
+      nw = NflTeams::News.new(team, newsItem.children[1].text, newsItem.children[2].text)
     end
   end
   def self.clear_all

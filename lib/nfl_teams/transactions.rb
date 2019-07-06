@@ -21,7 +21,7 @@ class NflTeams::Transactions
     trans.each do |tran|
       cnt = cnt + 1
       if cnt%2 == 0
-        transaction = Transactions.new(team, tran.children[0].children[0].text, "a")
+        transaction = NflTeams::Transactions.new(team, tran.children[0].children[0].text, "a")
       elsif (transaction != nil)
         transaction.note = tran.children[0].children[0].text
       end

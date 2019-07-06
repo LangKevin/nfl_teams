@@ -61,7 +61,7 @@ class NflTeams::Team
   def schedule
     #lazy load
     if @schedule == nil
-      @schedule = Schedule.create_and_fill(self)
+      @schedule = NflTeams::Schedule.create_and_fill(self)
     end
     @schedule
   end
@@ -69,34 +69,34 @@ class NflTeams::Team
   def transactions
     #lazy load
     if @transactions == nil
-      @transactions = Transactions.create_and_fill(self)
+      @transactions = NflTeams::Transactions.create_and_fill(self)
     end
     @transactions
   end
 
   def display_transactions
     if transactions != nil
-      Transactions.display_transactions
+      NflTeams::Transactions.display_transactions
     end
   end
 
   def news
     #lazy load
     if @news == nil
-      @news = News.create_and_fill(self)
+      @news = NflTeams::News.create_and_fill(self)
     end
     @news
   end
 
   def display_news
     if news != nil
-      News.display_news
+      NflTeams::News.display_news
     end
   end
 
   def display_schedule
     if schedule != nil
-      Schedule.display_schedule
+      NflTeams::Schedule.display_schedule
     end
   end
   #
