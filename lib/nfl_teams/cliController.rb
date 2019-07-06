@@ -1,3 +1,5 @@
+require_relative './team.rb'
+
 class NflTeams::CLIController
   def initialize
     display_intro
@@ -11,7 +13,7 @@ class NflTeams::CLIController
     puts "5. To quit type 5."
     puts "**********************************************"
     input = gets.chomp.to_i
-    team = Team.team_by_index(idx)
+    team = NflTeams::Team.team_by_index(idx)
     case input
       when 1
         #transactions
@@ -39,9 +41,9 @@ class NflTeams::CLIController
   end
   def display_intro
     puts "Welcome.  Please select which team you want to select.  Once the team is selected you can choose what you want to see."
-    # Team.create_and_fill
-    # Team.display_teams
-    # idx = gets.chomp.to_i
-    # display_options(idx-1)
+    NflTeams::Team.create_and_fill
+    NflTeams::Team.display_teams
+    idx = gets.chomp.to_i
+    display_options(idx-1)
   end
 end
