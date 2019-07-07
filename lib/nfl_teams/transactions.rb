@@ -1,4 +1,7 @@
+require_relative './Concerns/Fillable.rb'
+
 class NflTeams::Transactions
+  extend Concerns::Fillable
   @@all = []
   attr_accessor :note
   attr_reader :team, :date
@@ -30,9 +33,9 @@ class NflTeams::Transactions
   def self.clear_all
     all = []
   end
-  def self.create_and_fill(team)
-    self.load_all(team)
-  end
+  # def self.create_and_fill(team)
+  #   self.load_all(team)
+  # end
   def self.display_transactions
     cnt = 1
     all.each do |transaction|
