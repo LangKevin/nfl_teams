@@ -42,10 +42,17 @@ class NflTeams::Schedule
     @@all << self
   end
   def self.display_schedule
-    @@all.each do |schedule|
-      if schedule.week
-        puts "Week: #{schedule.week}"
-      end
+    @@all.each_with_index do |schedule, index|
+      if index < 16
+        if schedule.week
+          puts "Week: #{schedule.week + 1}"
+        end
+      elsif 
+        if schedule.week
+          puts "Preseason Week: #{index - 15} "
+        end
+      end  
+
       if schedule.day
         puts "   Day: #{schedule.day}"
       end

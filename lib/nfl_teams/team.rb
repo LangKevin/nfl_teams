@@ -5,26 +5,32 @@ require_relative './transactions.rb'
 
 class NflTeams::Team
   @@all = []
-  attr_accessor :name, :website, :abbreviation, :number
+  attr_accessor :name, :website, :abbreviation
   attr_reader :schedule, :transactions, :news
 
-  def initialize(name, website, abbreviation, number)
+  def initialize(name, website, abbreviation)
     @name = name
     @website = website
     @abbreviation = abbreviation
-    @number = number
     @@all << self
   end
+  def self.sort
+    @@all.sort! do |a, b|
+      a.name <=> b.name
+    end
+  end
+
   def self.fill_teams
     doc = Nokogiri::HTML(open("https://www.espn.com/nfl/teams"))
     teams = doc.css(".mt7").css(".ContentList__Item").css(".pl3")
-    teams.each_with_index do |team, index|
+    teams.each do |team|
       str = "https://www.espn.com" + team.children[0].attributes["href"].value
       idx = str.index("/name/") + 6
       str = str.slice(idx..idx+2).sub("/", "")
       url = "https://www.espn.com" + team.children[0].attributes["href"].value
-      NflTeams::Team.new(team.children[0].children[0].text, url, str, index + 1)
+      NflTeams::Team.new(team.children[0].children[0].text, url, str)
     end
+    self.sort
   end
 
   def self.create_and_fill
@@ -43,8 +49,8 @@ class NflTeams::Team
 
   def self.display_teams
     # self.load_all
-    @@all.each do |team|
-      puts "#{team.number}. #{team.name} "
+    @@all.each_with_index do |team, index|
+      puts "#{index + 1}. #{team.name} "
       puts "    #{team.website}"
     end
   end
