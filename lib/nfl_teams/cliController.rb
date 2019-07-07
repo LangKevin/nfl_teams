@@ -16,26 +16,20 @@ class NflTeams::CLIController
     team = NflTeams::Team.team_by_index(idx)
     case input
       when 1
-        #transactions
         team.display_transactions
         display_options(idx)
       when 2
-#latest news
         team.display_news
         display_options(idx)
       when 3
-#schedule
         team.display_schedule
         display_options(idx)
       when 4
-#full schedule
         Team.display_teams
         display_options(idx)
       when 5
-
       else
         team.display_news
-        # display_options(idx)
     end
 
   end

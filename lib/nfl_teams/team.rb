@@ -15,20 +15,15 @@ class NflTeams::Team
     @number = number
     @@all << self
   end
-  def self.all
-    @@all
-  end
   def self.fill_teams
     doc = Nokogiri::HTML(open("https://www.espn.com/nfl/teams"))
     teams = doc.css(".mt7").css(".ContentList__Item").css(".pl3")
-    cnt = 1
-    teams.each do |team|
+    teams.each_with_index do |team, index|
       str = "https://www.espn.com" + team.children[0].attributes["href"].value
       idx = str.index("/name/") + 6
       str = str.slice(idx..idx+2).sub("/", "")
       url = "https://www.espn.com" + team.children[0].attributes["href"].value
-      NflTeams::Team.new(team.children[0].children[0].text, url, str, cnt)
-      cnt = cnt + 1
+      NflTeams::Team.new(team.children[0].children[0].text, url, str, index + 1)
     end
   end
 
@@ -37,22 +32,18 @@ class NflTeams::Team
   end
 
   def self.team_by_index(idx)
-    all[idx]
-  end
-
-  def self.clear_all
-    all = []
+    @@all[idx]
   end
 
   def self.load_all
     #load all teams
-    self.clear_all
+    @@all = []
     self.fill_teams
   end
 
   def self.display_teams
     # self.load_all
-    all.each do |team|
+    @@all.each do |team|
       puts "#{team.number}. #{team.name} "
       puts "    #{team.website}"
     end

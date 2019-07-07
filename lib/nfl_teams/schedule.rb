@@ -4,7 +4,7 @@ class NflTeams::Schedule
   attr_accessor :week, :day, :team, :network, :ticketPrice, :ticketSite
   @@all = []
   def self.load_all(team)
-    self.clear_all
+    @@all = []
     url = "https://www.espn.com/nfl/team/schedule/_/name/#{team.abbreviation}"
     doc = Nokogiri::HTML(open(url))
     cssSched = doc.css(".Table2__td")
@@ -37,9 +37,6 @@ class NflTeams::Schedule
           end
       end
     end
-  end
-  def self.clear_all
-    @@all = []
   end
   def initialize
     @@all << self
