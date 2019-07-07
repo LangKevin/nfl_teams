@@ -1,4 +1,6 @@
+require_relative './Concerns/Fillable.rb'
 class NflTeams::News
+  extend Concerns::Fillable
   @@all = []
   attr_reader :team, :author, :note
   def self.all
@@ -16,9 +18,9 @@ class NflTeams::News
   def self.clear_all
     all = []
   end
-  def self.create_and_fill(team)
-    self.load_all(team)
-  end
+  # def self.create_and_fill(team)
+  #   self.load_all(team)
+  # end
   def initialize(team, author, note)
     @team = team
     @author = author

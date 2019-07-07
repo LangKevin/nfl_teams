@@ -1,9 +1,10 @@
+require_relative './Concerns/Fillable.rb'
 class NflTeams::Schedule
+  extend Concerns::Fillable
   attr_accessor :week, :day, :team, :network, :ticketPrice, :ticketSite
   @@all = []
   def self.load_all(team)
     self.clear_all
-#{team.abbreviation}"
     url = "https://www.espn.com/nfl/team/schedule/_/name/#{team.abbreviation}"
     doc = Nokogiri::HTML(open(url))
     cssSched = doc.css(".Table2__td")
@@ -39,9 +40,6 @@ class NflTeams::Schedule
   end
   def self.clear_all
     @@all = []
-  end
-  def self.create_and_fill(team)
-    self.load_all(team)
   end
   def initialize
     @@all << self

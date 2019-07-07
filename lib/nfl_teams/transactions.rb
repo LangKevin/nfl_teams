@@ -15,7 +15,7 @@ class NflTeams::Transactions
     @@all << self
   end
   def self.load_all(team)
-    self.clear_all
+    all = []
     url = "https://www.espn.com/nfl/team/transactions/_/name/#{team.abbreviation}"
     doc = Nokogiri::HTML(open(url))
     trans = doc.css(".transactions-table").css(".Table2__table__wrapper").css(".Table2__td")
@@ -30,12 +30,6 @@ class NflTeams::Transactions
       end
     end
   end
-  def self.clear_all
-    all = []
-  end
-  # def self.create_and_fill(team)
-  #   self.load_all(team)
-  # end
   def self.display_transactions
     cnt = 1
     all.each do |transaction|
