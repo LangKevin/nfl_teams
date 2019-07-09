@@ -1,7 +1,7 @@
 require_relative './Concerns/Fillable.rb'
 class NflTeams::Schedule
   extend Concerns::Fillable
-  attr_accessor :week, :day, :team, :network, :ticketPrice, :ticketSite
+  attr_accessor :week, :day, :team, :network, :ticketPrice, :ticketSite, :time, :location
   @@all = []
   def self.load_all(team)
     @@all = []
@@ -26,14 +26,20 @@ class NflTeams::Schedule
             end
           end
           if (schedule.css(".pr2").size > 0)
-            sched.team = schedule.css(".pr2").children[1].children[0]["title"]
+            sched.location = schedule.css(".pr2").children[0]
+            sched.team = schedule.search("a").children[0].attributes["title"].value
           end
           if (schedule.css(".network-container").size > 0)
-            sched.network = schedule.css(".network-container").children[0].children.text
+            sched.network = schedule.css(".network-container").children.search("div").text
           end
           if (schedule.css(".Schedule__ticket").size > 0)
             sched.ticketPrice = schedule.css(".Schedule__ticket").children[0]
             sched.ticketSite = schedule.children[0].attributes["href"].value
+          end
+          if (schedule.search("a").children.size > 0)
+            if (schedule.search("a").children[0].text != "") && !(schedule.search("a").children[0].text.match? /Ticket/)
+              sched.time = schedule.search("a").children[0].text
+            end
           end
       end
     end
@@ -52,12 +58,11 @@ class NflTeams::Schedule
           puts "Preseason Week: #{index - 15} "
         end
       end  
-
-      if schedule.day
-        puts "   Day: #{schedule.day}"
+      if schedule.day && schedule.time
+        puts "   Day: #{schedule.day}  Time: #{schedule.time} (EDT) "
       end
-      if schedule.team
-        puts "   Team: #{schedule.team}"
+      if schedule.team && schedule.location
+        puts "   Team: #{schedule.location} #{schedule.team}"
       end
       if schedule.network
         puts "   Network: #{schedule.network}"

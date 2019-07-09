@@ -23,12 +23,12 @@ class NflTeams::Team
   def self.fill_teams
     doc = Nokogiri::HTML(open("https://www.espn.com/nfl/teams"))
     teams = doc.css(".mt7").css(".ContentList__Item").css(".pl3")
-    teams.each do |team|
+    teams.each_with_index do |team, index|
       str = "https://www.espn.com" + team.children[0].attributes["href"].value
       idx = str.index("/name/") + 6
       str = str.slice(idx..idx+2).sub("/", "")
       url = "https://www.espn.com" + team.children[0].attributes["href"].value
-      NflTeams::Team.new(team.children[0].children[0].text, url, str)
+      NflTeams::Team.new(team.search("h2").children.text, url, str)
     end
     self.sort
   end
