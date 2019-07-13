@@ -1,10 +1,16 @@
 # NflTeams
 # TODO describe what this does
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/nfl_teams`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcomes to nfl teams.  This gem will list all 32 nfl teams from espn's website.  You will have the following choices after selecting a team.      
+    "1. To see the lastest transactions type 1"
+    "2. To see the lastest news blurbs type 2"
+    "3. To see the schedule and lowest ticket prices please type 3"
+    "4. To see the full team list again type 4"
+    "5. To quit type 5."
 
-TODO: Delete this and the text above, and describe your gem
+All files can be found in the lib/nfl_teams directory.  To run the application please type the following `./bin/nfl_teams`
 
 ## Installation
+you will need to run bundle install once in the nfl_teams directory
 
 Add this line to your application's Gemfile:
 
