@@ -1,5 +1,3 @@
-require_relative './team.rb'
-
 class NflTeams::CLIController
   def initialize
     display_intro

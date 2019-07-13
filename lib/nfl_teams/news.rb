@@ -1,4 +1,3 @@
-require_relative './Concerns/Fillable.rb'
 class NflTeams::News
   extend Concerns::Fillable
   @@all = []

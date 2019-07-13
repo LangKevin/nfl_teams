@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require "bundler/setup"
 require "nfl_teams"
+require_relative '../lib/nfl_teams'
 
 controller = NflTeams::CLIController.new
 

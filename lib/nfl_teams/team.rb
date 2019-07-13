@@ -1,8 +1,3 @@
-require 'open-uri'
-require_relative './schedule.rb'
-require_relative './schedule.rb'
-require_relative './transactions.rb'
-
 class NflTeams::Team
   @@all = []
   attr_accessor :name, :website, :abbreviation
